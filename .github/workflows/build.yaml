@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_REPO: ghcr.io/enucatl/protonmail-bridge
-  DOCKER_REPO_DEV: ghcr.io/enucatl/protonmail-bridge-dev
+  DOCKER_REPO: ghcr.io/lethedata/protonmail-bridge
+  DOCKER_REPO_DEV: ghcr.io/lethedata/protonmail-bridge-dev
 
 jobs:
   build:
@@ -63,7 +63,7 @@ jobs:
           # Define labels for image metadata
           labels: |
             org.opencontainers.image.version=${{ steps.version.outputs.version }}
-            org.opencontainers.image.source=https://github.com/enucatl/protonmail-bridge-docker
+            org.opencontainers.image.source=https://github.com/lethedata/protonmail-bridge-docker
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.created=${{ github.event.head_commit.timestamp }}
             org.opencontainers.image.licenses=GPL-3.0-only
