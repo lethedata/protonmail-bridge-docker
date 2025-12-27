@@ -1,9 +1,13 @@
 # What is this fork about?
 
+- Enable secure passwords stores
 - Allow connecting with ipv6.
-- Changing configurations in `docker-compose.yml` to use my external network.
-- Publish my image to github with actions, only for amd64
+- Supply podman quadlets
+- Publish image to github with actions
 
+Based on [Enucatl/protonmail-bridge-docker](https://github.com/Enucatl/protonmail-bridge-docker) fork
+
+Keyring passphrase is passed in through the docker `KEYRING_PASSPHRASE` environment variable which should be provided through a Docker secret.
 
 # ProtonMail IMAP/SMTP Bridge Docker Container
 
