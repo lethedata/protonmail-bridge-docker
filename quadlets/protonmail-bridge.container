@@ -1,0 +1,21 @@
+[Unit]
+Description=Proton Mail Bridge quadlet
+
+[Container]
+Image=ghcr.io/lethedata/protonmail-bridge:latest
+ContainerName=protonmail-bridge
+AutoUpdate=registry
+StopSignal=SIGKILL
+UserNS=auto
+PublishPort=1143:1243/tcp
+PublishPort=1025:1125/tcp
+Mount=type=tmpfs,dst=/home/protonmail/.cache/protonmail,chown=true
+Volume=protonmail.volume:/data:Z,U
+Secret=protonbridge,type=env,target=KEYRING_PASSPHRASE
+
+[Service]
+Restart=always
+SuccessExitStatus=137
+
+[Install]
+WantedBy=multi-user.target
