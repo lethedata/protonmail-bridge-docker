@@ -3,6 +3,7 @@
 - Enable secure passwords stores
 - Allow connecting with ipv6.
 - Supply podman quadlets
+- Host protonmail-cli script for easy quadlet cli interactions
 - Publish image to github with actions
 
 Based on [Enucatl/protonmail-bridge-docker](https://github.com/Enucatl/protonmail-bridge-docker) fork

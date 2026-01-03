@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# Limitations:
+# Does not handle multiple of the same quadlet options
+# Ports are not published when interacting with cli
+
+set -e
+
+QUADLET_NAME="protonmail-bridge.container"
+SERVICE_NAME="${QUADLET_NAME%.container}.service"
+
+if [ "$(id -u)" = 0 ]; then
+    CONTAINER_FILE="/etc/containers/systemd/$QUADLET_NAME"
+    stop_quadlet="systemctl stop $SERVICE_NAME"
+    start_quadlet="systemctl stop $SERVICE_NAME"
+else
+    CONTAINER_FILE="${XDG_CONFIG_HOME-$HOME/.config}/containers/systemd/$QUADLET_NAME"
+    stop_quadlet="systemctl stop --user $SERVICE_NAME"
+    start_quadlet="systemctl stop --user $SERVICE_NAME"
+fi
+
+# Load variables from quadlet file
+while IFS='=' read -r key value
+do
+    # Ignore lines that don't contain an '=' character or are empty
+    if [ -z "$key" ] || [ -z "$value" ] || [ "${key#\[}" != "$key" ] || [ "${key# }" != "$key" ]; then
+        continue
+    fi
+
+    key=$(echo "$key" | sed 's/^[ \t]*//;s/[ \t]*$//')
+    value=$(echo "$value" | sed 's/^[ \t]*//;s/[ \t]*$//')
+
+    eval "$key=\"$value\""
+
+done < "$CONTAINER_FILE"
+
+# Check if Volume is a systemd volume and correct name
+## This does not validate the actual volume name contains .volume
+if echo "$Volume" | grep -q ".volume"; then
+    Volume="systemd-$(echo "$Volume" | sed 's/\.volume//')"
+fi
+
+$stop_quadlet && echo Stopped Quadlet
+
+echo "Attaching to Proton Bridge Cli...."
+echo 'Type "exit" when done'
+
+# shellcheck disable=SC2154
+/usr/bin/podman run --name "$ContainerName" \
+    --replace --rm -it \
+    --userns "$UserNS" \
+    -v "$Volume" \
+    --secret "$Secret" \
+    --mount "$Mount" \
+    "$Image" init
+
+$start_quadlet && echo Started Quadlet
