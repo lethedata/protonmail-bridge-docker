@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     git \
     golang \
     build-essential \
+    libcbor-dev \
+    libfido2-dev \
     libsecret-1-dev
 
 # Build
