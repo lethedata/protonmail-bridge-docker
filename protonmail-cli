@@ -12,11 +12,11 @@ SERVICE_NAME="${QUADLET_NAME%.container}.service"
 if [ "$(id -u)" = 0 ]; then
     CONTAINER_FILE="/etc/containers/systemd/$QUADLET_NAME"
     stop_quadlet="systemctl stop $SERVICE_NAME"
-    start_quadlet="systemctl stop $SERVICE_NAME"
+    start_quadlet="systemctl start $SERVICE_NAME"
 else
     CONTAINER_FILE="${XDG_CONFIG_HOME-$HOME/.config}/containers/systemd/$QUADLET_NAME"
     stop_quadlet="systemctl stop --user $SERVICE_NAME"
-    start_quadlet="systemctl stop --user $SERVICE_NAME"
+    start_quadlet="systemctl start --user $SERVICE_NAME"
 fi
 
 # Load variables from quadlet file
