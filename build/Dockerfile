@@ -28,6 +28,7 @@ EXPOSE 143/tcp
 RUN apt-get update && apt-get install -y --no-install-recommends \
     dbus-x11 \
     libsecret-1-0 \
+    libfido2-1 \
     pass \
     socat \
     ca-certificates \
