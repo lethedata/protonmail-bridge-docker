@@ -15,7 +15,7 @@ RUN apt-get update && apt-get install -y \
 
 # Build
 WORKDIR /build/
-COPY build.sh VERSION /build/
+COPY build.sh VERSION default-vault-types_settings.patch /build/
 RUN bash build.sh
 
 FROM ubuntu:latest

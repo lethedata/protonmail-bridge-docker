@@ -6,3 +6,4 @@
 !gpgparams
 !Dockerfile
 !build.sh
+!default-vault-types_settings.patch

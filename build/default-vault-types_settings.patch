@@ -1,0 +1,14 @@
+--- a/internal/vault/types_settings.go
++++ b/internal/vault/types_settings.go
+@@ -95,8 +95,8 @@ func newDefaultSettings(gluonDir string) Settings {
+ 		ColorScheme:       "",
+ 		ProxyAllowed:      false,
+ 		ShowAllMail:       true,
+ 		Autostart:         true,
+-		AutoUpdate:        true,
+-		TelemetryDisabled: false,
++		AutoUpdate:        false,
++		TelemetryDisabled: true,
+ 
+ 		LastVersion: "0.0.0",
+ 		FirstStart:  true,
